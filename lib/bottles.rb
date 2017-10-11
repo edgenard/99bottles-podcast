@@ -1,19 +1,31 @@
 class Bottles
     def verse(number)
+        first_line = "#{quantity(number).capitalize} #{container(number)} of beer on the wall, #{quantity(number)} #{container(number)} of beer.\n"
+
         case number
-         when 2
-            "2 bottles of beer on the wall, 2 bottles of beer.\n" +
-            "Take one down and pass it around, 1 bottle of beer on the wall.\n"
-         when 1
-            "1 bottle of beer on the wall, 1 bottle of beer.\n" +
-            "Take it down and pass it around, no more bottles of beer on the wall.\n"
          when 0
-            "No more bottles of beer on the wall, no more bottles of beer.\n" +
-            "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+           first_line +
+            "Go to the store and buy some more, #{quantity(number - 1)} #{container(number - 1)} of beer on the wall.\n"
          else
-            "#{number} bottles of beer on the wall, #{number} bottles of beer.\n" +
-            "Take one down and pass it around, #{number - 1} bottles of beer on the wall.\n"
+           first_line +
+            "Take #{pronoun(number)} down and pass it around, #{quantity(number - 1)} #{container(number - 1)} of beer on the wall.\n"
         end  
+    end
+
+    def quantity(number)
+        return 'no more' if number == 0
+        return 99.to_s if number == -1
+        number.to_s
+    end
+
+    def container(number)
+        return 'bottle' if number == 1
+        'bottles'
+    end
+
+    def pronoun(number  = :DEFAULT)
+        return 'it' if number == 1
+        'one'
     end
 
     def verses(from_verse, to_verse)
@@ -24,3 +36,7 @@ class Bottles
         verses(99, 0)
     end
 end
+
+# Find the things that are most alike
+# Find the smallest difference between them
+# Make the smallest change that will remove that difference
